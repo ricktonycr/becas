@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html,body{
+            border:none;
+            margin: 0px;
+        }
+        .exam{
+            background-image: url('igm.jpeg');
+            background-position: top;
+            background-size: contain;
+            display: flex;
+        }
+
+        .exam iframe{
+            background-color: rgba(0.5, 0.5, 0.5, 0.5);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .timerText{
+            display: flex;
+        }
+
+        .timerText h2{
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="timerText">
+        <h2 id="text"></h2>
+    </div>
+    <div class="exam">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeldlifq-ZaJsQdYHLKdhz8PMVIFR6guF2xPOtxZm1SG7X_4A/viewform?embedded=true" width="640" height="2300" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+    </div>
+    <script>
+        (function(){
+            setInterval(interval, 1000);
+
+            var textE = document.getElementById("text");
+
+            function interval(){
+                var finish  = 1598803200000;
+                var now     = Date.now();
+                var diff    = finish - now;
+                var diff    = (diff < 0)?0:diff;
+                var seconds = diff/1000;
+                var minutes = seconds/60;
+                var hours   = minutes/60;
+                seconds     = Math.round(seconds%60);
+                minutes     = Math.round(minutes%60);
+                hours       = Math.round(hours);
+                var text    = "Te quedan " + hours + " horas, " + minutes + " minutos y " + seconds + " segundos";
+                textE.innerHTML = text;
+                console.log(( - Date.now())/1000/60/60/24);
+            }
+            
+        })();
+    </script>
+</body>
+</html>

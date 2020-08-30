@@ -23,6 +23,8 @@
 
         .timerText{
             display: flex;
+            background-color: #4CAF50;
+            color: whitesmoke;
         }
 
         .timerText h2{
@@ -33,7 +35,7 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="timerText">
+    <div class="timerText" id="banner">
         <h2 id="text"></h2>
     </div>
     <div class="exam">
@@ -41,9 +43,11 @@
     </div>
     <script>
         (function(){
+            var textE  = document.getElementById("text");
+            var banner = document.getElementById("banner");
+
             setInterval(interval, 1000);
 
-            var textE = document.getElementById("text");
 
             function interval(){
                 var finish  = 1598803200000;
@@ -53,12 +57,29 @@
                 var seconds = diff/1000;
                 var minutes = seconds/60;
                 var hours   = minutes/60;
-                seconds     = Math.round(seconds%60);
-                minutes     = Math.round(minutes%60);
-                hours       = Math.round(hours);
-                var text    = "Te quedan " + hours + " horas, " + minutes + " minutos y " + seconds + " segundos";
+                seconds     = Math.floor(seconds%60);
+                minutes     = Math.floor(minutes%60);
+                hours       = Math.floor(hours);
+                if(hours > 1){
+                    var text    = "Te quedan " + hours + " horas, " + minutes + " minutos y " + seconds + " segundos";
+                }
+                if(hours == 1){
+                    var text    = "Te quedan " + hours + " hora, " + minutes + " minutos y " + seconds + " segundos";
+                }
+                if(hours == 0){
+                    var text    = "Te quedan " + minutes + " minutos y " + seconds + " segundos";
+                }
+
                 textE.innerHTML = text;
-                console.log(( - Date.now())/1000/60/60/24);
+
+                if(hours == 0 && minutes == 15 && seconds == 0){
+                    alert("Te quedan 15 minutos, terminado el tiempo no podrás enviar el examen.");
+                    banner.style.backgroundColor = "#FDD835";
+                }
+                if(hours == 0 && minutes == 5 && seconds == 0){
+                    alert("Te quedan 5 minutos, terminado el tiempo no podrás enviar el examen.");
+                    banner.style.backgroundColor = "#E64A19";
+                }
             }
             
         })();

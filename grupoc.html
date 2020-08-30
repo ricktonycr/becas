@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html,body{
+            border:none;
+            margin: 0px;
+        }
+        .exam{
+            background-image: url('igm.jpeg');
+            background-position: top;
+            background-size: contain;
+            display: flex;
+        }
+
+        .exam iframe{
+            background-color: rgba(0.5, 0.5, 0.5, 0.5);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .timerText{
+            display: flex;
+            background-color: #4CAF50;
+            color: whitesmoke;
+        }
+
+        .timerText h2{
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="timerText" id="banner">
+        <h2 id="text"></h2>
+    </div>
+    <div class="exam">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfrqfrMFbW-F_CA6BR0JCks0roe4mOL3RjWwy8yAkYtFgE16w/viewform?embedded=true" width="640" height="7600" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+    </div>
+    <script>
+        (function(){
+            var textE  = document.getElementById("text");
+            var banner = document.getElementById("banner");
+
+            setInterval(interval, 1000);
+
+
+            function interval(){
+                var finish  = 1598803200000;
+                var now     = Date.now();
+                var diff    = finish - now;
+                var diff    = (diff < 0)?0:diff;
+                var seconds = diff/1000;
+                var minutes = seconds/60;
+                var hours   = minutes/60;
+                seconds     = Math.floor(seconds%60);
+                minutes     = Math.floor(minutes%60);
+                hours       = Math.floor(hours);
+                if(hours > 1){
+                    var text    = "Te quedan " + hours + " horas, " + minutes + " minutos y " + seconds + " segundos";
+                }
+                if(hours == 1){
+                    var text    = "Te quedan " + hours + " hora, " + minutes + " minutos y " + seconds + " segundos";
+                }
+                if(hours == 0){
+                    var text    = "Te quedan " + minutes + " minutos y " + seconds + " segundos";
+                }
+
+                textE.innerHTML = text;
+
+                if(hours == 0 && minutes == 15 && seconds == 0){
+                    alert("Te quedan 15 minutos, terminado el tiempo no podrás enviar el examen.");
+                    banner.style.backgroundColor = "#FDD835";
+                }
+                if(hours == 0 && minutes == 5 && seconds == 0){
+                    alert("Te quedan 5 minutos, terminado el tiempo no podrás enviar el examen.");
+                    banner.style.backgroundColor = "#E64A19";
+                }
+            }
+            
+        })();
+    </script>
+</body>
+</html>
